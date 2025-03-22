@@ -1,68 +1,135 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Globe, Zap, Box, Shield } from "lucide-react";
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black">
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black">
-        <div className="h-[600px] w-[600px] rounded-full bg-gradient-to-r from-violet-500/30 to-cyan-500/30 blur-[120px]" />
-      </div>
+    <div className="flex min-h-screen flex-col">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full border-b border-white/10 bg-black/50 backdrop-blur-lg z-50">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center">
+            <a href="/" className="text-white font-semibold text-xl">Blink</a>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" className="text-white">Login</Button>
+            <Button>Start Deploying</Button>
+          </div>
+        </div>
+      </nav>
 
-      {/* Grid pattern */}
-      <div 
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:14px_24px]"
-        style={{ maskImage: 'radial-gradient(circle, transparent 30%, black)' }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 text-center"
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="group relative px-8"
-        >
-          <div className="absolute -inset-x-2 -inset-y-2 z-0 hidden rounded-lg bg-gradient-to-r from-violet-500/50 to-cyan-500/50 opacity-0 blur-xl transition duration-1000 group-hover:opacity-100 group-hover:duration-200 md:block" />
-          <div className="absolute -inset-x-2 -inset-y-2 z-10 hidden rounded-lg bg-gradient-to-r from-violet-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 md:block" />
-          <h1 className="relative z-20 bg-gradient-to-b from-white to-white/70 bg-clip-text font-mono text-5xl font-bold tracking-tighter text-transparent md:text-7xl">
-            Hello World
-          </h1>
-        </motion.div>
+      {/* Hero Section */}
+      <div className="relative flex flex-col items-center justify-center min-h-screen px-4 pt-16 bg-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#4F46E5,_transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#6366F1,_transparent_50%)]" />
+        </div>
         
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="relative mt-8"
-        >
-          <div className="absolute inset-x-0 -top-2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-          <p className="bg-gradient-to-b from-white/80 to-white/50 bg-clip-text font-mono text-sm text-transparent md:text-base">
-            Welcome to your minimalist Vercel-style site
+        <div className="relative max-w-3xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            Deploy your dreams to the edge
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Ship your applications faster with zero configuration. Built for developers, trusted by enterprises.
           </p>
-          <div className="absolute inset-x-0 -bottom-2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        </motion.div>
-      </motion.div>
-
-      {/* Corner badge */}
-      <div className="absolute bottom-8 flex items-center space-x-2 text-sm text-white/40">
-        <div className="h-2 w-2 rounded-full bg-emerald-500/80" />
-        <span className="font-mono">Ready to deploy</span>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Button size="lg" className="gap-2">
+              Start Deploying <ArrowRight className="size-4" />
+            </Button>
+            <Button variant="outline" size="lg">
+              Learn More
+            </Button>
+          </div>
+        </div>
       </div>
-    </main>
+
+      {/* Features Grid */}
+      <div className="bg-black py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy Faster</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Everything you need to deploy your app
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-300">
+              From single static pages to complex applications, we've got you covered with powerful features and zero configuration.
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+              {features.map((feature) => (
+                <div key={feature.name} className="flex flex-col">
+                  <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
+                    <feature.icon className="h-5 w-5 flex-none text-indigo-400" aria-hidden="true" />
+                    {feature.name}
+                  </dt>
+                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
+                    <p className="flex-auto">{feature.description}</p>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      {/* Preview Section */}
+      <div className="bg-black/50 py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Preview your deployments
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-300">
+              Every push creates a new deployment with its own unique URL. Preview changes before they go live.
+            </p>
+          </div>
+          <div className="mt-16 flow-root sm:mt-24">
+            <div className="relative rounded-xl bg-gray-900/50 p-2 ring-1 ring-white/10 backdrop-blur-xl">
+              <div className="absolute -top-px left-20 right-11 h-px bg-gradient-to-r from-sky-300/0 via-sky-300/70 to-sky-300/0" />
+              <div className="absolute -bottom-px left-11 right-20 h-px bg-gradient-to-r from-blue-400/0 via-blue-400 to-blue-400/0" />
+              <div className="p-4">
+                <div className="font-mono text-sm text-gray-300">
+                  <p>$ blink deploy</p>
+                  <p className="text-emerald-400">✓ Deployed to production</p>
+                  <p className="text-sky-400">Preview: https://your-app.blink.new</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-black py-12 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-gray-400">© 2024 Blink. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="text-sm text-gray-400 hover:text-white">Privacy</a>
+              <a href="#" className="text-sm text-gray-400 hover:text-white">Terms</a>
+              <a href="#" className="text-sm text-gray-400 hover:text-white">Contact</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
+
+const features = [
+  {
+    name: 'Global Edge Network',
+    description: 'Deploy your applications to a global network of edge servers for blazing fast performance.',
+    icon: Globe,
+  },
+  {
+    name: 'Instant Deployments',
+    description: 'Push to deploy with zero configuration. Every commit creates a new deployment.',
+    icon: Zap,
+  },
+  {
+    name: 'Preview Deployments',
+    description: 'Preview changes in a production environment before merging to main.',
+    icon: Box,
+  },
+]
